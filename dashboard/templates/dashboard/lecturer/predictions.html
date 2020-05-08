@@ -1,0 +1,54 @@
+{% extends  'dashboard/lecturer/base.html' %}
+
+{% block title %} G3 Predictions {% endblock title %}
+
+{% block content %}
+
+    {% if messages %}
+        {% for message in messages %}
+
+            <div class="alert alert-success">{{message}}</div>
+
+        {% endfor %}
+    {% endif %}
+
+    <div class="row">
+        <div class="alert alert-info" role="alert" style="width: 100%;"> 
+            Click the submit button anytime changes are made
+          </div>
+          <h1>{{course.course_title}}</h1>
+        
+        <div class="col-10 col-sm-10">
+ 
+
+            <table class="table"> 
+                <tr>
+                    <th>Student</th>
+        
+                    <th>G3 Predictions </th>
+                </tr>
+                        {% for student_obj in predictions %}
+                            <tr>
+                                
+                                <td>{{student_obj.student.matric_number}}</td>
+                                {% if student_obj.category == 'pass' %}
+                                    <td><p class="alert alert-success">{{student_obj.category}}</p> </td>
+                                {% else %}
+                                    <td><p class="alert alert-danger">{{student_obj.category}}</p> </td>
+                                {% endif %}
+
+                            </tr>
+                        {% endfor %}
+
+            </table>
+        </div>
+
+        <div class="col-2 col-sm-2">
+    
+            <input type="submit" name="Submit" value="Submit" class="btn btn-primary submit btn-sm">
+
+        </div>
+    
+
+
+{% endblock content %}

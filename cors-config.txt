@@ -1,0 +1,21 @@
+** - optional
+
+AFTER CREATING BUCKET 
+CLICK ON THE BUCKET
+CLICK ON PERMISSIONS
+COPY AND PASTE CODE UNDER TO CORS CONFIGURATION
+<?xml version="1.0" encoding="UTF-8"?>
+<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+   <CORSRule>
+        <AllowedOrigin>*</AllowedOrigin>
+        <AllowedMethod>GET</AllowedMethod>
+        <AllowedMethod>POST</AllowedMethod>
+        <AllowedMethod>PUT</AllowedMethod>
+        <AllowedHeader>*</AllowedHeader>
+    </CORSRule>
+</CORSConfiguration>
+
+** FOR MORE SECURITY REMOE THE '*' AND PLACE THE DOMAIN NAME
+SAVE
+
+go to the home page and find "IAM" in the search bar

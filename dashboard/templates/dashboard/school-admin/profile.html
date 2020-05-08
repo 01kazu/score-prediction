@@ -1,0 +1,74 @@
+{% extends "dashboard/school-admin/base.html" %}
+
+{% block title %}
+    My profile
+{% endblock title %}
+
+
+{% block css %}
+    <style>
+        .col-6{
+            margin-bottom: 5vh;
+        }
+        .fa{
+            margin-right: 10px;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            <img src="{{admin.profile_pic.url}}" class="img-thumbnail">
+        </div>
+
+        <div class="col-10">
+            <div class="row">
+                <div class="col-6">
+                    <i class="fa fa-user"></i>First Name: {{admin.user.first_name|title}}
+                </div>
+
+                <div class="col-6">
+                    <i class="fa fa-user"></i>Last Name: {{admin.user.last_name|title}}
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <i class="fa fa-calendar"></i>Date of Birth: {{admin.date_of_birth}}
+                </div>
+
+                <div class="col-6">
+                    {% if admin.gender == "male" %}
+                        <i class="fa fa-male"></i> Gender: {{admin.gender|title}}
+                    {% else %}
+                        <i class="fa fa-female"></i> Gender: {{admin.gender|title}}
+                    {% endif %}
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-6">
+                    <i class="fa fa-phone-square"></i> Phone Number: {{admin.phone_number}}
+                </div>
+
+                <div class="col-6">
+                    <i class="fa fa-envelope"></i>E-mail: {{admin.user.email}}
+                </div>
+
+            </div>
+
+     
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock content %}

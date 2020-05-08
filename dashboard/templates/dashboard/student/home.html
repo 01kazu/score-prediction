@@ -1,0 +1,25 @@
+{% extends "dashboard/student/base.html" %}
+
+{% block content %}
+
+    {% for course, student_g1, student_g2, student_g3 in student_score %}
+        <h2>{{course.course_title|title}}</h2>
+            <table class="table"> 
+   
+                <tr>
+                        <th>G1 Score</th>
+                        <th>G2 Score</th>
+                        <th>G3 Score</th>   
+                </tr>
+                
+                <tr>  
+                        <td>{{student_g1.score}}</td>
+                        <td>{{student_g2.score}}</td>
+                        <td>{{student_g3.score}}</td> 
+                </tr>
+
+            </table>
+    {% endfor %}
+
+
+{% endblock %}

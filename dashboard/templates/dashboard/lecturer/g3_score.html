@@ -1,0 +1,72 @@
+
+{% extends  'dashboard/lecturer/base.html' %}
+{% load crispy_forms_tags %}
+
+    {% block title %} Examination {% endblock title %}
+    
+    {% block css   %}
+        <style> 
+            input[type='number']{
+                width: 50px;
+            }
+            .submit{
+                margin-top: 9.4vh;
+            }   
+            a {
+            text-decoration: none;
+            }
+    {% endblock css  %}
+         
+        </style>
+{% block content %}
+    {% if messages %}
+                {% for message in messages %}
+
+                    <div class="alert alert-success">{{message}}</div>
+
+                {% endfor %}
+    {% endif %}
+    
+
+ <form method="POST" >
+    {% csrf_token %}
+    {{ formset.management_form }}
+
+
+    <div class="row">
+        <div class="alert alert-info" role="alert" style="width: 100%;"> 
+            Click the submit button anytime changes are made
+          </div>
+          <h1>{{course.course_title}}</h1>
+        
+        <div class="col-10 col-sm-10">
+ 
+
+            <table class="table"> 
+                <tr>
+                    <th>Student</th>
+        
+                    <th>G3 Scores </th>
+                </tr>
+                        {% for student in students %}
+                            <tr>
+                                
+                                <td>{{student.student.matric_number}}</td>
+                                <td><input type="number" name="{{student.student.matric_number}}-g3" value="{{student.score}}" step="any" max="20"></td>
+                            </tr>
+                        {% endfor %}
+
+            </table>
+        </div>
+
+        <div class="col-2 col-sm-2">
+    
+            <input type="submit" name="Submit" value="Submit" class="btn btn-primary submit btn-sm">
+
+        </div>
+   
+
+</form>
+
+
+ {% endblock content %}

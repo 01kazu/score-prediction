@@ -1,0 +1,100 @@
+{% extends "dashboard/student/base.html" %}
+
+{% block title %}
+    My profile
+{% endblock title %}
+
+
+{% block css %}
+    <style>
+        .col-6{
+            margin-bottom: 5vh;
+            text-align: center;
+        }
+        .fa{
+            margin-right: 10px;
+        }
+
+    </style>
+{% endblock css %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            <img src="{{student.profile_pic.url}}" class="img-thumbnail">
+        </div>
+
+        <div class="col-10">
+            <div class="row">
+                <div class="col-6">
+                    <i class="fa fa-user"></i>First Name: {{student.user.first_name|title}}
+                </div>
+
+                <div class="col-6">
+                    <i class="fa fa-user"></i>Last Name: {{student.user.last_name|title}}
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <i class="fa fa-calendar"></i>Date of Birth: {{student.date_of_birth}}
+                </div>
+
+                <div class="col-6">
+                    {% if student.gender == "male" %}
+                        <i class="fa fa-male"></i> Gender: {{student.gender|title}}
+                    {% else %}
+                        <i class="fa fa-female"></i> Gender: {{student.gender|title}}
+                    {% endif %}
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-6">
+                    <i class="fa fa-phone-square"></i> Phone Number: {{student.phone_number}}
+                </div>
+
+                <div class="col-6">
+                    <i class="fa fa-envelope"></i>E-mail: {{student.user.email}}
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-6">
+                    <i class="fa "></i> Department: {{student.department}}
+                </div>
+
+                <div class="col-6">
+                    <i class="fa "></i>Matric Number: {{student.matric_number}}
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-6">
+                    <i class="fa "></i> Level: {{student.level}}
+                </div>
+
+                <div class="col-6">
+                    <i class="fa "></i>Year Enrolled: {{student.year_enrolled}}
+                </div>
+
+            </div>
+
+     
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock content %}

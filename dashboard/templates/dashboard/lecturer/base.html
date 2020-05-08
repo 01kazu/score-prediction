@@ -1,0 +1,256 @@
+{% load static %}
+
+<!doctype html>
+
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}  Dashboard  {% endblock title %}</title>
+    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+       
+    {% block css   %}
+
+
+    {% endblock css %}
+
+    <style>
+        #loader {
+          transition: all 0.3s ease-in-out;
+          opacity: 1;
+          visibility: visible;
+          position: fixed;
+          height: 100vh;
+          width: 100%;
+          background: #fff;
+          z-index: 90000;
+        }
+    
+        #loader.fadeOut {
+          opacity: 0;
+          visibility: hidden;
+        }
+    
+        .spinner {
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          top: calc(50% - 20px);
+          left: calc(50% - 20px);
+          background-color: #333;
+          border-radius: 100%;
+          -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+          animation: sk-scaleout 1.0s infinite ease-in-out;
+        }
+    
+        @-webkit-keyframes sk-scaleout {
+          0% { -webkit-transform: scale(0) }
+          100% {
+            -webkit-transform: scale(1.0);
+            opacity: 0;
+          }
+        }
+    
+        @keyframes sk-scaleout {
+          0% {
+            -webkit-transform: scale(0);
+            transform: scale(0);
+          } 100% {
+            -webkit-transform: scale(1.0);
+            transform: scale(1.0);
+            opacity: 0;
+          }
+        }
+      </style>
+
+
+    <script>
+        window.addEventListener('load', function load() {
+          const loader = document.getElementById('loader');
+          setTimeout(function() {
+            loader.classList.add('fadeOut');
+          }, 300);
+        });
+      </script>
+       
+       
+
+</head>
+
+<body>
+    
+    <div id='loader'>
+        <div class="spinner"></div>
+      </div>
+
+    <!-- Left Panel -->
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="{% url 'scores:dashboard' %}"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+                    </li>
+
+                {% for course in courses %}
+                    
+                    <li class="menu-item-has-children dropdown">
+                        {% if course.level == 100 %}
+                            <p>100 Level</p>
+                        {% elif course.level == 200 %}
+                            <p>200 Level</p>
+                        {% elif course.level == 300 %}
+                            <p>300 Level</p>
+                        {% elif course.level == 400 %}
+                            <p>400 level</p>
+                        {% endif %}
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-book" aria-hidden="true"></i>{{course.course_title}}</a>
+                
+                        <ul class="sub-menu children dropdown-menu">
+                            <li></i><a href="{% url 'scores:course-g1-score' course_slug=course.slug%} "> G1 Score</a></li>
+                            <li></i><a href="{% url 'scores:course-g2-score' course_slug=course.slug %} ">G2 Score</a></li>
+                            <li></i><a href="{% url 'scores:course-g3-score'  course_slug=course.slug %} "> G3 Score</a></li>
+                            <li></i><a href="{% url 'scores:predictions' course_slug=course.slug %}  ">Predictions</a></li>
+                        </ul>
+                
+                    </li>
+                    
+                {% endfor %}
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside>
+
+
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <header id="header" class="header">
+            <div class="top-left">
+                <div class="navbar-header">
+                    <!-- <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a> -->
+                    <!-- <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></!--> 
+                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+                </div>
+            </div>
+            <div class="top-right">
+                <div class="header-menu">
+                    <div class="header-left">
+                        <button class="search-trigger"><i class="fa fa-search"></i></button>
+                        <div class="form-inline">
+                            <!-- SEARCH BAR -->
+                            <form class="search-form">
+                                <!-- <input class="form-control mr-sm-2" type="text" placeholder="Search " aria-label="Search"> -->
+                                <input type="text" placeholder="Search " aria-label="Search">
+                                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+
+                            </form>
+                            <!-- SEARCH BAR -->
+                        </div>
+
+                        
+                    </div>
+                
+                    <div class="user-area dropdown float-right">
+                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                
+                            <img class="user-avatar rounded-circle" src="{{user.lecturer.profile_pic.url}}" alt="pic" style="width: 50px; height: 100%;">
+                            
+                        </a>
+
+                        <div class="user-menu dropdown-menu">
+                            <a class="nav-link" href="{% url 'lecturer-profile-page' %}"><i class="fa fa-user"></i>My Profile</a>
+                            <a class="nav-link" href='{% url "password_change" %}'><i class="fa fa-lock"></i>Change Password</a>
+                            <a class="nav-link" href="{% url 'lecturer-admin-logout' %}"><i class="fa fa-power-off"></i>Logout</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+        <!-- /#header -->
+        
+
+
+
+
+    <div class="content"> 
+        {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success">{{message}}</div>
+                {% endfor %}
+        {% endif %}  
+
+        {% block content %}
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="card text-white bg-flat-color-2">
+                            <div class="card-body">
+                                <div class="card-left pt-1 float-left">
+                                    <h3 class="mb-0 fw-r">
+                                        <span class="count">{{no_courses}}</span>
+                                    </h3>
+                                    <p class="text-light mt-1 m-0">Total Number Of Courses Lecturing</p>
+                                </div><!-- /.card-left -->
+    
+                                <div class="card-right float-right text-right">
+                                    <img src="https://img.icons8.com/ios/75/000000/courses.png"/>
+                                </div><!-- /.card-right -->
+    
+                            </div>
+    
+                        </div>
+                    </div>
+                    
+                    {% for num_fail, course in no_of_students_failed %}
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="card text-white bg-flat-color-{% cycle 4 5 %}">
+                                <div class="card-body">
+                                    <div class="card-left pt-1 float-left">
+                                        <h3 class="mb-0 fw-r">
+                                            <span class="count">{{num_fail}}</span>
+                                        </h3>
+                                        <p class="text-light mt-1 m-0">No of Students Who Is Predicted To Fail {{course|title}}</p>
+                                    </div><!-- /.card-left -->
+        
+                                    <div class="card-right float-right text-right">
+                                        <img src="https://img.icons8.com/ios/75/000000/courses.png"/>
+                                    </div><!-- /.card-right -->
+        
+                                </div>
+        
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>            
+
+        {% endblock content %}
+    
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script> -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+    <!-- <script src="../../../static/js/main.js"></script> -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+
+    
+    {% block javascript %}
+
+    {% endblock javascript %}
+
+</body>
+</html>

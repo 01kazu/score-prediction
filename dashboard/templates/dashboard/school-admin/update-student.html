@@ -1,0 +1,21 @@
+{% extends 'dashboard/school-admin/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Update Student{% endblock %}
+
+{% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h3> Update {{student.user.first_name|title}}|{{student.matric_number}}  Information</h3>
+
+        {{ userform|crispy }}
+         {{ studentinfo|crispy}}
+    
+                <button type="submit" value="Submit" class="btn btn-primary"> Update</button> 
+           
+        </form>
+            
+                <a href="{% url 'all-students' %}" class="btn btn-primary"> All Students</a>    
+         
+   
+{% endblock content %} 

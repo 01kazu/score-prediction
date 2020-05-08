@@ -1,0 +1,12 @@
+{% extends 'dashboard/school-admin/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form action="" method="POST" enctype='multipart/form-data'>
+                {%csrf_token %}
+                {{ userform|crispy }}
+                {{ schooladmininfo|crispy}}
+                
+                <button type="submit" value="Submit">Submit</button>
+    </form>
+{% endblock content %}

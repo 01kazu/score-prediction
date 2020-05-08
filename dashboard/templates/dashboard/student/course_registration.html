@@ -1,0 +1,19 @@
+{% extends "dashboard/student/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Course Registration
+{% endblock title %}
+
+{% block content %}
+<form method="POST">
+    <h2>Register Your Courses</h2>
+    {% csrf_token %}
+
+    {{form|crispy}}
+    <!-- <input type="hidden" name = "student" value="{{student}}"> -->
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+{% endblock content %}

@@ -1,0 +1,156 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/login_style.css' %}">
+    <title>Log in </title>
+</head>
+<body>
+
+        <div class="main-container">
+            
+            <div class="row student">
+                <div class="col-6 left-side">
+                    <button onclick="show_admin()"> Admin/Lecturer?</button>
+                </div>
+
+                <div class="col-6">
+                    {% if messages %}
+                        {% for message in messages %}
+
+                            <div class="alert alert-danger">{{message}}</div>
+
+                        {% endfor %}
+                    {% endif %}
+
+                    <h1 class="heading-title">Log In</h1>
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="input-group mb-3">
+                            
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1"><i class="menu-icon fa fa-user" aria-hidden="true"></i> </span>
+                            </div>
+
+                            <input type="text" class="form-control"  placeholder="Matric Number" name="matric_number"aria-label="Username" aria-describedby="basic-addon1" >
+                        </div>
+
+
+                        <div class="input-group mb-3">
+                            
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1"><i class="menu-icon fa fa-user" aria-hidden="true"></i> </span>
+                            </div>
+
+                            <input type="password" class="form-control"  placeholder="Password" name="password" aria-label="Password" aria-describedby="basic-addon1" >
+                        </div>
+
+                        <input type="hidden" name="user_id" value="1">
+
+                        <button type="submit" class="btn btn-primary" id="student" onclick="student_login_click()" style="margin: auto; display: inline;">Log In</button>
+
+                        <small><a href="{% url 'admin_password_reset' %}" >Forgot Password?</a></small>
+
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="row admin-form">
+                <div class="col-6">
+                    <h1 class="heading-title">Log In</h1>
+
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="input-group mb-3">
+                            
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1"><i class="menu-icon fa fa-user" aria-hidden="true"></i> </span>
+                            </div>
+
+                            <input type="text" class="form-control"  placeholder="Username..." name="username"aria-label="Username" aria-describedby="basic-addon1" >
+                        </div>
+
+
+                        <div class="input-group mb-3">
+                            
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1"><i class="menu-icon fa fa-user" aria-hidden="true"></i> </span>
+                            </div>
+
+                            <input type="password" class="form-control"  placeholder="Password..." name="password" aria-label="Password" aria-describedby="basic-addon1" >
+                        </div>
+
+                        <input type="hidden" name="user_id" value="1">
+
+                        <button type="submit" class="btn btn-primary" id="lecturer-admin" style="margin: auto;" onclick="lecturer_admin_click()">Log In</button>
+
+
+                    </form>
+
+                </div>
+
+                <div  class="col-6 right-side">
+                    <button onclick="show_student()"> Student?</button>
+
+                </div>
+
+            </div>
+            
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+        <script>
+            var admin = $('.admin-form')
+            admin.hide()
+
+
+            function show_admin(){
+                var student = $('.student');
+                var admin   = $('.admin-form');
+                student.hide();
+                admin.show();
+            }
+
+            function show_student(){
+                var student = $('.student');
+                var admin   = $('.admin-form');
+                student.show();
+                admin.hide();
+            }
+
+            function student_login_click(){
+            //  var student_id = $('input[id="student"]');
+                var user_id = $('input[name="user_id"]');
+                user_id.val("student")
+             // $('input:hidden').val('True');  
+
+             
+             
+            }
+
+            function lecturer_admin_click(){
+                // var lecturer_admin_id = $('input[id="lecturer-admin"]');
+                var user_id = $('input[name="user_id"]');
+                user_id.val("lecturer-admin")
+
+            }
+
+
+
+        </script>
+    
+</body>
+</html>

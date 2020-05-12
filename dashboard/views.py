@@ -192,6 +192,19 @@ class AllStudents(UserPassesTestMixin, ListView):
         """Allows Only The School Admin To See This Page"""
         return lambda user: not user.is_anonymous and user.schooladmin.schooladmin_access
 
+    def get_queryset(self):
+        try:
+            matric_number = self.request.GET['matric_number'].upper()
+            print(matric_number)
+        except:
+            matric_number = ''
+
+        if (matric_number != ''):
+            object_list = self.model.objects.filter(matric_number = matric_number)
+        else:
+            object_list = self.model.objects.all()
+        return object_list
+
 
 # Decorator that allows only the School Admin to see this page
 @user_passes_test(lambda user: not user.is_anonymous and user.schooladmin.schooladmin_access, login_url='lecturer-admin-login')
@@ -335,6 +348,20 @@ class AllLecturers(UserPassesTestMixin, ListView):
     def test_func(self):
         return lambda user: not user.is_anonymous and user.schooladmin.schooladmin_access
 
+    def get_queryset(self):
+        try:
+            username = self.request.GET['username']
+        except:
+            username = ''
+
+        if (username != ''):
+            object_list = self.model.objects.filter(user__username = username)
+        else:
+            object_list = self.model.objects.all()
+        return object_list
+
+    
+
 
 @user_passes_test(lambda user: not user.is_anonymous and user.schooladmin.schooladmin_access, login_url='lecturer-admin-login')
 def update_lecturer(request, pk):
@@ -428,6 +455,18 @@ class AllSchoolAdmin(UserPassesTestMixin, ListView):
     def test_func(self):
         return lambda user: not user.is_anonymous and user.schooladmin.schooladmin_access
 
+    def get_queryset(self):
+        try:
+            username = self.request.GET['username']
+        except:
+            username = ''
+
+        if (username != ''):
+            object_list = self.model.objects.filter(user__username = username)
+        else:
+            object_list = self.model.objects.all()
+        return object_list
+
 
 @user_passes_test(lambda user: not user.is_anonymous and user.schooladmin.schooladmin_access, login_url='lecturer-admin-login')
 def create_course(request):
@@ -459,6 +498,18 @@ class AllCourses(UserPassesTestMixin, ListView):
 
     def test_func(self):
         return lambda user: not user.is_anonymous and user.schooladmin.schooladmin_access
+    
+    def get_queryset(self):
+        try:
+            course = self.request.GET['course'].upper()
+        except:
+            course = ''
+
+        if (course != ''):
+            object_list = self.model.objects.filter(course_code = course)
+        else:
+            object_list = self.model.objects.all()
+        return object_list
 
 
 class UpdateCourse(UserPassesTestMixin, SuccessMessageMixin, UpdateView):

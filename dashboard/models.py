@@ -129,17 +129,12 @@ class Student(models.Model):
         """Returns The Student's Matric Number When The Object Is Called""" 
         return f'{self.matric_number}'
 
-    # def calculateAge(self, birthDate): 
-    #     days_in_year = 365.2425    
-    #     age = int((date.today() - birthDate).days / days_in_year) 
-    #     return age 
-
     def save(self, *args, **kwargs):
         """ Saves the Age of the Student """
         days_in_year = 365.2425    
         age = int((date.today() - self.date_of_birth).days / days_in_year) 
         self.age = age
-        # self.age = calculateAge(self.date_of_birth)
+        self.matric_number = self.matric_number.upper()
         super(Student, self).save(*args, **kwargs)
 
     
@@ -161,6 +156,7 @@ class Course(models.Model):
     def save(self, *args, **kwargs): 
         """Slugifies The Course Title Before Saving The Object"""
         self.slug = slugify(self.course_title) 
+        self.title = self.title.upper()
         super(Course, self).save(*args, **kwargs) 
 
 

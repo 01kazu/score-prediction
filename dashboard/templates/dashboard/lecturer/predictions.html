@@ -26,16 +26,19 @@
                     <th>Student</th>
         
                     <th>G3 Predictions </th>
+
+                    <th>Score</th>
                 </tr>
                         {% for student_obj in predictions %}
                             <tr>
                                 
                                 <td>{{student_obj.student.matric_number}}</td>
-                                {% if student_obj.category == 'pass' %}
-                                    <td><p class="alert alert-success">{{student_obj.category}}</p> </td>
+                                {% if student_obj.group == 'pass' %}
+                                    <td><p class="alert alert-success">{{student_obj.group}}</p> </td>
                                 {% else %}
-                                    <td><p class="alert alert-danger">{{student_obj.category}}</p> </td>
+                                    <td><p class="alert alert-danger">{{student_obj.group}}</p> </td>
                                 {% endif %}
+                                <td>{{student_obj.score}}</td>
 
                             </tr>
                         {% endfor %}
